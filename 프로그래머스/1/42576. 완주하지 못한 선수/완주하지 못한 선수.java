@@ -3,7 +3,8 @@ import java.util.*;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        // sol 1 : 정렬후 다른원소가 나올경우 해당원소 return   (nlogn)
+        
+//         sol 1 : 정렬후 다른원소가 나올경우 해당원소 return   (nlogn)
         
 //         int size = participant.length;
 //         Arrays.sort(participant);
