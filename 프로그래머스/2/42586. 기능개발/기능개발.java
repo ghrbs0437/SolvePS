@@ -1,46 +1,37 @@
 import java.util.*;
-
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int[] answer = {};
-        
-        int size = progresses.length;
-        ArrayList<Integer> answerList = new ArrayList<>();
-        
-        int j=0;
+        int currentIndex = 0;
+        ArrayList<Integer> alist = new ArrayList<>();
         while(true){
-            for(int i=j;i<size;i++){
-                progresses[i]+=speeds[i];
+            // 릴리즈일 구하기..
+            if(currentIndex==progresses.length){
+                System.out.println(alist);
+                int[] arr = new int[alist.size()];
+                for(int i=0;i<alist.size();i++){
+                    arr[i] = alist.get(i);
+                }
+                return arr;
             }
-            int releaseUnit=0;
-            for(int i=j;i<size;i++){
-                if(progresses[i]>=100){
-                    releaseUnit++;
-                    continue;
-                }else{
+            int restJob = 100 - progresses[currentIndex];
+            int day = 0;
+            day += restJob/speeds[currentIndex];
+            if(restJob%speeds[currentIndex]!=0){
+                day+=1;
+            }    
+            // 릴리즈단위 구하기..
+            int count =0;
+            for(;currentIndex<progresses.length;currentIndex++){
+                if(progresses[currentIndex] + speeds[currentIndex] * day <100){
                     break;
+                }else{
+                    count++;
                 }
             }
-            if(releaseUnit==0){
-                continue;
-            }else{
-                answerList.add(releaseUnit);
-                j+=releaseUnit;    
-            }
-
-            if(j>=size){
-                break;
-            }
+            alist.add(count);
         }
         
-        for(Integer in : answerList){
-            System.out.println(in);
-        }
-        answer = new int[answerList.size()];
-        for(int i=0;i<answerList.size();i++){
-            answer[i]=answerList.get(i);
-        }
         
-        return answer;
+        
     }
 }
