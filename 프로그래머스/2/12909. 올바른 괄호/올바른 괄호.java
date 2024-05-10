@@ -1,31 +1,44 @@
 import java.util.*;
-
-
 class Solution {
-    public boolean solution(String s) {
-        int length = s.length();
-        Stack<Character> st = new Stack<>();
-        for(int i=0;i<length;i++){
-            char cur = s.charAt(i);
-            if(cur=='{' ||cur=='('){
-                st.add(cur);
-            }else if(cur==')'){
-                if(st.empty() || st.peek()!='('){
+    boolean solution(String s) {
+        boolean answer = true;
+
+        Stack<Character> stack = new Stack<>();
+        
+        if(s.charAt(0)==')'){
+            return false;
+        }
+        if(s.charAt(s.length()-1)=='('){
+            return false;
+        }
+        if(s.length()%2!=0){
+            return false;
+        }
+        stack.push(s.charAt(0));
+      
+        System.out.println(stack.peek());
+        for(int i=1;i<s.length();i++){
+            if(stack.empty()){
+                if(s.charAt(i)==')'){
                     return false;
                 }else{
-                    st.pop();
+                    stack.push(s.charAt(i));
                 }
-            }else if(cur=='}'){
-                 if(st.empty() ||st.peek()!='{'){
-                    return false;
+            }else{
+                if(s.charAt(i)==')'){
+                    stack.pop();
                 }else{
-                    st.pop();
+                    stack.push(s.charAt(i));
                 }
+                
             }
+            
         }
-        if(st.empty()){
+        if(stack.empty()){
             return true;
+        }else{
+            return false;
         }
-        return false;
+                
     }
 }
