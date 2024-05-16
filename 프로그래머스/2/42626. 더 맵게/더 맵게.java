@@ -24,10 +24,6 @@ class Solution {
             pq.add(min + min2*2);
         }
         
-        if(pq.peek()>=K){
-            return answer;
-        }
-        
         return -1;
     }
 }
