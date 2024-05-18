@@ -7,9 +7,6 @@ class Solution {
         int size = wires.length;
         HashMap<Integer,HashSet<Integer>> hmap = new HashMap<>();
         
-        int minA = 0;
-        int minB = 0;
-        
         // 반대거 = size - count - 1
         // 정답 = 반대거 - count 절대값
         for(int i=0;i<size;i++){
@@ -26,7 +23,7 @@ class Solution {
             hmap.get(ePos).add(sPos);
         }
         for(int i=0;i<size;i++){
-            // wires[i][0] , wires[i][1]을 무시한다..;
+           
             int count=0;
             Queue<Integer> sPoss = new LinkedList<>();
             HashSet<Integer> visit = new HashSet<>();
@@ -34,10 +31,10 @@ class Solution {
             while(sPoss.size()!=0){
                 Integer temp = sPoss.poll();
                 // System.out.println(temp);
+                // wires[i][0] , wires[i][1]을 무시한다..  즉, 간선 하나를 제거한다
                 if(temp ==wires[i][1]){
                     continue;
                 }
-                
                 if(!visit.contains(temp)){
                     visit.add(temp); 
                     count++;    
@@ -52,7 +49,7 @@ class Solution {
                 answer = temp;
             }
         }
-        
+         
         
         return answer;
     }
