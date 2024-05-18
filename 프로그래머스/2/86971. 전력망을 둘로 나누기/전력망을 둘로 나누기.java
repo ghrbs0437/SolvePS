@@ -46,7 +46,7 @@ class Solution {
                     }
                 }
             }
-            System.out.println(visit);
+            // System.out.println(visit);
             int temp  = Math.abs(size - 2 * count+1);
             if(temp<answer){
                 answer = temp;
