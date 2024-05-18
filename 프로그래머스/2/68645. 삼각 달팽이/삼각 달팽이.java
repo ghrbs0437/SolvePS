@@ -27,19 +27,15 @@ class Solution {
             switch(currentDir){
                 case down:
                     arr[x][y] = num;
-                    if(x==n-1){
+                    if(x==n-1 || arr[x+1][y]!=0){
                         currentDir = Direction.right;
-                        num--;
-                        break;
-                    }         
-                    if(arr[x+1][y]!=0){
-                        currentDir = Direction.right;
+                        // num--;
                         if(arr[x][y+1]!=0){
                             flag=true;
                         }
                         y++;
                         break;
-                    }
+                    }         
                     x++;
                     break;
                 case right:
