@@ -29,7 +29,6 @@ class Solution {
                     arr[x][y] = num;
                     if(x==n-1 || arr[x+1][y]!=0){
                         currentDir = Direction.right;
-                        // num--;
                         if(arr[x][y+1]!=0){
                             flag=true;
                         }
@@ -40,12 +39,7 @@ class Solution {
                     break;
                 case right:
                     arr[x][y] = num;
-                    if(y==n-1){
-                        currentDir = Direction.up;
-                        num--;
-                        break;
-                    }
-                    if(arr[x][y+1]!=0){
+                    if(y==n-1 || arr[x][y+1]!=0){
                         currentDir = Direction.up;
                         if(arr[x-1][y-1]!=0){
                             flag = true;
@@ -76,14 +70,6 @@ class Solution {
             num++;
         }
         ArrayList<Integer> alist = new ArrayList<>();
-        
-//         for(int[] arrs : arr){
-//             for(int i : arrs){
-//                 System.out.print(i+" ");
-//             }
-//             System.out.println();
-//         }
-        
         
         for(int[] arrs : arr){
             for(int i : arrs){
