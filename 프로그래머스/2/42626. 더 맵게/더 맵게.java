@@ -17,10 +17,8 @@ class Solution {
                 break;
             }
             answer++;
-            int min = pq.peek();
-            pq.remove();
-            int min2 = pq.peek();
-            pq.remove();
+            int min = pq.poll();
+            int min2 = pq.poll();
             pq.add(min + min2*2);
         }
         
