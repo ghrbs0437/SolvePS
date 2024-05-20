@@ -21,7 +21,24 @@ class Solution {
             int min2 = pq.poll();
             pq.add(min + min2*2);
         }
-        
         return -1;
+        
+//         Arrays.sort(scoville);
+//         int index = 0;
+//         while(true){
+//             if(scoville[index]>=K){
+//                 break;
+//             }
+//             if(index==scoville.length-1){
+//                 return -1;
+//             }
+//             scoville[index+1] = scoville[index] + scoville[index+1]*2;
+//             index++;
+//         }
+//         for(int i:scoville){
+//             System.out.println(i);
+//         }
+        
+//         return index;
     }
 }
