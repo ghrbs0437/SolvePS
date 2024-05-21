@@ -41,7 +41,6 @@ class Solution {
             }else{
                 carTimeMap.put(carNumber, carTimeMap.get(carNumber) + runningTime);
             }
-            // carMap.remove(carNumber);
         }
         
         Set<String> keys = carTimeMap.keySet();
