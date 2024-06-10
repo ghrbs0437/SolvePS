@@ -40,15 +40,6 @@ class Solution {
         return answer;
     }
     
-//     public void propagation(int start, int[][] players,int number){
-//         for(int i=0;i<number;i++){
-//             if(players[start][i]!=0){
-//                 getCanWinList();
-//                 propagation(i,players,number);
-//             }
-//         }
-//     }
-    
     public void winPropagation(int start, int[][] players,int number){
         Queue<Integer> queue = new LinkedList<>();
         HashSet<Integer> visit = new HashSet<>();
