@@ -4,7 +4,6 @@ class Solution {
     int xsize = 0;
     int ysize = 0;
     public int[] solution(String[] maps) {
-        int[] answer = {};
         xsize = maps[0].length();
         ysize = maps.length;
         
@@ -20,13 +19,6 @@ class Solution {
                 }
             }
         }
-               
-        // for(int[] gra : graph){
-        //     for(int i : gra){
-        //         System.out.print(i);
-        //     }
-        //     System.out.println();
-        // }
         
         int[][] visit = new int[ysize][xsize];
         ArrayList<Integer> alist = new ArrayList<>();
@@ -38,26 +30,22 @@ class Solution {
                 if(visit[i][j]==1){
                     continue;
                 }                
-                // 1. graph[i][j]를 방문했는가? 하지 않은경우만 확인;
-                // 2. graph[i][j]이 0이 아닌경우만 확인..;
-                // System.out.println(i+ " " + j);
                 alist.add(propergation(graph,visit,i,j));
-                
-                // System.out.println(num);
             }
         }
         
+        int[] answer = {};
         if(alist.size()==0){
             answer = new int[1];
             answer[0] = -1;
             return answer;
         }
+        
         Collections.sort(alist);
         answer = new int[alist.size()];
         for(int i=0;i<alist.size();i++){
             answer[i] = alist.get(i);
         }
-
         return answer;
     }
     
@@ -69,7 +57,7 @@ class Solution {
         if(y==-1){
             return 0;
         }
-        if(x==xsize){ // x를 더이상 증가시킬수 없음
+        if(x==xsize){
             return 0;
         }
         if(y==ysize){
