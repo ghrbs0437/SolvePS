@@ -18,7 +18,7 @@ class Solution {
             queue.add(p);
             p = m + p;
         }
-        System.out.println(queue);
+        // System.out.println(queue);
         
         int counter = 1;
         int cur = 0 ;
