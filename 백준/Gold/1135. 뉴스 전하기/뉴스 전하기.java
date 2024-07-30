@@ -27,10 +27,8 @@ public class Main {
             CTree child = new CTree(i);
             parent.add(child);
             hmap.put(i, child);
-//            parent.upperPrepergation();
         }
-//        System.out.println(hmap.get(0)+ ""+hmap.get(0).underNodeDepth);
-//        System.out.println(root.underNodeCnt);
+
 
         // root에서 출발.. childs중에서 underNodeDepth가 가장 큰걸 선택
         // 한단계 깊어질수록 카운팅
@@ -46,8 +44,6 @@ public class Main {
 
     public static class CTree{
         int index;
-        int time;
-        CTree parent;
         ArrayList<CTree> childs = new ArrayList<>();
 
 
@@ -61,6 +57,16 @@ public class Main {
         }
 
 
+        /**
+         *
+         * 발상은 처음부터 했는데.. 실제로 값이 어떨지 생각나는게 무척늦어 푸는데 오래걸림.
+         * 최초엔 PriorityQueue를 활용하지 않고 MIn, max value를 저장해서 하려고 했는데
+         * 하위노드가 554441 같은 경우 처리가 불가능하다는걸 꺠닿고 PQ로 변경
+         * PQ로 변경한뒤, 큰거부터 꺼내서 탐색비용을 확인하는건 좋았는데
+         * childs.size()와 max값을 처음부터 비교하고 return하면 되는데 이걸 max에 해당하는 값이 변경된 후에 처리하려고 해서
+         * 계속 오류발생...
+         * @return
+         */
         public int explore() {
 
             if(childs.size()==0){
@@ -86,14 +92,8 @@ public class Main {
                 max--;
 
             }
-//            System.out.println(index + " " + max + " " + childs.size());
-
             return childs.size()+max-1;
 
-        }
-
-        public String toString() {
-            return index + ""+childs.toString();
         }
 
     }
