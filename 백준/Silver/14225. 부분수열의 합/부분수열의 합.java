@@ -16,16 +16,13 @@ public class Main {
 
         int[] arr = new int[size];
         int sum = 0;
-        int min = Integer.MAX_VALUE;
         for(int i=0;i<size;i++){
             arr[i] = Integer.parseInt(strs[i]);
             sum+=arr[i];
-            if(min>arr[i]){
-                min = arr[i];
-            }
         }
-        // min 에서 sum 범위에서 boolean false를 찾아라.
-        //
+        
+        // 부분수열의 합으로 만들 수 있는 숫자를 표시하는 배열
+        // false면 만들 수 없음을 의미
         boolean[] b = new boolean[sum+1];
         getAns(0,0,arr,b);
 
