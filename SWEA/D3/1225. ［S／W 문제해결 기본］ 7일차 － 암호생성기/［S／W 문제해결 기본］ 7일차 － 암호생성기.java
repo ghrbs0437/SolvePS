@@ -23,11 +23,7 @@ public class Solution {
                     minDivider = divider;
                 }
             }
-            // 만약 나눌수 없었다면 몫은 0으로 한다.
-            if(minDivider == Integer.MAX_VALUE) {
-                minDivider = 0;
-            }
-             
+            
             // 한번에 15씩 나눴기 때문에, 0인채로 끌려다닌 녀셕이 있을 수도 있다..  
             for(int i=0;i<8;i++) {
                 arr[i] -= minDivider*15;
