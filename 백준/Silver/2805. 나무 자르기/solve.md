@@ -95,6 +95,8 @@ public class Main {
 			}
 		}
 
+		// 입력종료
+
 
 		int height = 0;
 		int dHeight = maxWoodLength;
