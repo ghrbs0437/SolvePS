@@ -14,24 +14,23 @@ public class Main {
         int xSize = Integer.parseInt(strs[1]);
         int range = Integer.parseInt(strs[2])-1;
 
-        Map map = new Map(new int[ySize][xSize]);
+        Map map = new Map(ySize,xSize);
         map.range = range;
 
-        int minMonsterY = ySize;
+        int playTime = 0;
         for(int i=0;i<ySize;i++) {
             strs = br.readLine().split(" ");
             for(int j=0;j<xSize;j++) {
                 map.map[i][j] = Integer.parseInt(strs[j]);
                 if(map.map[i][j]==1){
-                    if(minMonsterY>i){
-                        minMonsterY = i;
+                    if(playTime<ySize-i){
+                        playTime = ySize-i;
                     }
                 }
-
             }
         }
-        map.minMonsterY = minMonsterY;
-        map.permutation(0,0,new boolean[xSize]);
+        map.playTime = playTime;
+
         map.play();
         System.out.println(map.MAX);
 
@@ -41,18 +40,19 @@ public class Main {
         final int[][] map;
         final int ySize;
         final int xSize;
-        int minMonsterY;
+        int playTime;
 
         int range;
         int MAX = 0;
         ArrayList<int[]> archerCase = new ArrayList<>();
-        Map(int[][] map){
-            this.map = map;
-            this.ySize = map.length;
-            this.xSize = map[0].length;
+        Map(int ySize,int xSize){
+            this.map = new int[ySize][xSize];
+            this.ySize = ySize;
+            this.xSize = xSize;
+            permutation(0,0,new boolean[xSize]);
         }
 
-        void permutation(int selectCnt,int index,boolean[] select){
+        private void permutation(int selectCnt,int index,boolean[] select){
 
             if(selectCnt==3){
                 int[] archersCase = new int[3];
@@ -89,38 +89,21 @@ public class Main {
                     archer.yPos = ySize-1;
                     archer.range = this.range;
                     archers.add(archer);
-
                 }
 
-
-
                 int killed = 0;
-                for(int j=minMonsterY;j<ySize;j++){
+                for(int j=playTime;j>=0;j--){
                     for(Archer archer : archers){
                         archer.shoot(gameMap);
                     }
-//                    printMap(gameMap);
-//                    System.out.println();
-                    killed+= moveMonster(gameMap);
+                    killed+= moveMonsterAndGetKilled(gameMap);
                 }
                 if(MAX<killed){
                     MAX = killed;
                 }
             }
         }
-
-        private void printMap(int[][] map){
-
-            for(int i=0;i< map.length;i++){
-                for(int j=0;j<map[0].length;j++){
-                    System.out.print(map[i][j]+" ");
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-
-        private int moveMonster(int[][] map){
+        private int moveMonsterAndGetKilled(int[][] map){
             int cnt = 0 ;
             for(int i=ySize-1;i>=1;i--){
                 for(int j=0;j<xSize;j++){
@@ -149,15 +132,12 @@ public class Main {
             }
             return newMap;
         }
-
-
     }
 
     public static class Archer{
         int xPos;
         int yPos;
         int range;
-
         public void shoot(int[][] map) {
             for(int i=0;i<=range;i++) { // 탐색 range..
                 for(int x=xPos-i;x<=xPos+i;x++) {
@@ -173,10 +153,6 @@ public class Main {
 //                    xPos-i 에서 1을 줄일때마다 y값을 1얻을 수 있다..
                 }
             }
-        }
-
-        public String toString(){
-            return "["+xPos+" ," + range+" ]";
         }
     }
 }
