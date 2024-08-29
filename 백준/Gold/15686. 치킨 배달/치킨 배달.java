@@ -52,7 +52,7 @@ public class Main {
             generateDistanceMap();
             getCombination(0,0,new boolean[storeList.size()]);
 
-            for(ArrayList<Integer> storesPerCase : storeCase) {
+            tc : for(ArrayList<Integer> storesPerCase : storeCase) {
                 int sumChickenDistance = 0;
                 for (Home home : homeList) {
                     ArrayList<Integer> distanceList = distanceMap.get(home);
@@ -64,6 +64,10 @@ public class Main {
                         }
                     }
                     sumChickenDistance+=homeMinChickenDistance;
+                    
+                    if(sumChickenDistance>answer){
+                        continue tc;
+                    }
                 }
                 if (sumChickenDistance < answer) {
                     answer = sumChickenDistance;
