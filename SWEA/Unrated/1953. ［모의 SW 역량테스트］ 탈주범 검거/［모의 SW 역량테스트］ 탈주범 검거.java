@@ -1,9 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashSet;
 
 public class Solution {
+
+
+    public static boolean FINISHED = false;
+
+    public static int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -25,62 +30,56 @@ public class Solution {
                     map[i][j] = Integer.parseInt(strs[j]);
                 }
             }
-            int answer = BFS(map,time,yPos,xPos);
-            sb.append("#"+tc+" " +answer+"\n");
+            boolean[][] check = new boolean[map.length][map[0].length];
+            DFS(map,check,new boolean[map.length][map[0].length],yPos,xPos,time);
+
+            int cnt=0;
+            for(int i=0;i<map.length;i++){
+                for(int j=0;j<map[0].length;j++){
+                    if(check[i][j]){
+                        cnt++;
+                    }
+                }
+            }
+            sb.append("#"+tc+" "+cnt+"\n");
         }
         System.out.println(sb);
     }
 
-    public static int BFS(int[][] map, int depth,int y,int x){
-        Queue<Integer> xq = new ArrayDeque<>();
-        Queue<Integer> yq = new ArrayDeque<>();
-        xq.add(x);
-        yq.add(y);
-        int cnt = 0;
-        boolean[][] visits = new boolean[map.length][map[0].length];
-        while(true){
-            if(xq.isEmpty() || depth==0){
-                break;
+
+    public static void DFS(int[][] map,boolean[][] check,boolean[][] visits,int y,int x,int time){
+        if(time == 0){
+            return;
+        }
+
+        check[y][x] = true;
+
+
+        for(int[] direction : TernalType.of(map[y][x]-1).direction){
+            int ny = y + direction[0];
+            int nx = x + direction[1];
+
+            if(ny<0||nx<0||ny>=map.length||nx>=map[0].length){
+                continue;
             }
-            depth--;
+            if(map[ny][nx]==0){
+                continue;
+            }
+            if(visits[ny][nx]){
+                continue;
+            }
 
-            int size = xq.size();
-            for(int i=0;i<size;i++){
-                int cx = xq.poll();
-                int cy = yq.poll();
-                if(map[cy][cx]==0 || visits[cy][cx]){
-                    continue;
-                }
-                visits[cy][cx]=true;
-                cnt++;
-
-                int[][] directions = TunnelType.of(map[cy][cx]-1).direction;
-                for(int[] direction : directions){
-                    int dy = direction[0];
-                    int dx = direction[1];
-                    int ny = cy+dy;
-                    int nx = cx+dx;
-                    if(ny<0||nx<0||ny>= map.length||nx>=map[0].length){
-                        continue;
-                    }
-                    if(map[ny][nx]==0||visits[ny][nx]){
-                        continue;
-                    }
-
-                    for(int[] ndirection : TunnelType.of(map[ny][nx]-1).direction){
-                        if(ndirection[0] == -dy && ndirection[1]==-dx){
-                            xq.add(nx);
-                            yq.add(ny);
-                            break;
-                        }
-                    }
+            for(int[] ndirection : TernalType.of(map[ny][nx]-1).direction){
+                if(ndirection[0] == -direction[0] && ndirection[1] == -direction[1]){
+                    visits[ny][nx] = true;
+                    DFS(map,check,visits,ny,nx,time-1);
+                    visits[ny][nx] = false;
                 }
             }
         }
-        return cnt;
     }
 
-    public enum TunnelType{
+    public enum TernalType{
         A(new int[][]{{-1,0},{1,0},{0,-1},{0,1}}),
         B(new int[][]{{-1,0},{1,0}}),
         C(new int[][]{{0,-1},{0,1}}),
@@ -89,12 +88,12 @@ public class Solution {
         F(new int[][]{{1,0},{0,-1}}),
         G(new int[][]{{-1,0},{0,-1}});
         int[][] direction;
-        TunnelType(int[][] direction){
+        TernalType(int[][] direction){
             this.direction = direction;
         }
 
-        public static TunnelType of(int ordinal){
-            for(TunnelType type : TunnelType.values()){
+        public static TernalType of(int ordinal){
+            for(TernalType type : TernalType.values()){
                 if(type.ordinal() == ordinal){
                     return type;
                 }
