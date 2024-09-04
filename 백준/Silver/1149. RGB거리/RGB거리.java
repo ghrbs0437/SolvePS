@@ -14,19 +14,12 @@ public class Main {
 
 
         int[] arr = new int[3];
-        String[] strs =  br.readLine().split(" ");
-        int red = Integer.parseInt(strs[0]);
-        int green = Integer.parseInt(strs[1]);
-        int blue = Integer.parseInt(strs[2]);
-        arr[0] = red;
-        arr[1] = green;
-        arr[2] = blue;
 
-        for(int i=1;i<N;i++){
-            strs = br.readLine().split(" ");
-            red = Integer.parseInt(strs[0]);
-            green = Integer.parseInt(strs[1]);
-            blue = Integer.parseInt(strs[2]);
+        for(int i=0;i<N;i++){
+            String[] strs = br.readLine().split(" ");
+            int red = Integer.parseInt(strs[0]);
+            int green = Integer.parseInt(strs[1]);
+            int blue = Integer.parseInt(strs[2]);
 
             int next0 = Math.min(arr[1],arr[2])+red;
             int next1 = Math.min(arr[0],arr[2])+green;
