@@ -1,15 +1,13 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class Main {
 
     public static int[][] directions = {{-1,0},{1,0},{0,1},{0,-1}};
-
+    public static int[][] map;
+    public static int[][] costMap;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -20,8 +18,8 @@ public class Main {
             if(size==0){
                 break;
             }
-            int[][] map = new int[size][size];
-            int[][] costMap = new int[size][size];
+            map = new int[size][size];
+            costMap = new int[size][size];
             for(int i=0;i<size;i++){
                 String[] strs = br.readLine().split(" ");
                 for(int j=0;j<size;j++){
@@ -29,8 +27,6 @@ public class Main {
                     costMap[i][j] = Integer.MAX_VALUE;
                 }
             }
-
-            boolean[][] visits = new boolean[map.length][map.length];
             costMap[0][0] = map[0][0];
             PriorityQueue<Token> pq = new PriorityQueue<>((a,b)-> a.value-b.value);
             pq.add(new Token(0,0,map[0][0]));
@@ -50,11 +46,11 @@ public class Main {
 
                     if(costMap[ny][nx] > costMap[cy][cx] + map[ny][nx]){
                         costMap[ny][nx]  = costMap[cy][cx] + map[ny][nx];
-                        pq.add(new Token(ny,nx,map[ny][nx]));
+                        pq.offer(new Token(ny,nx,map[ny][nx]));
                     }
                 }
             }
-            sb.append("Problem "+tc+": " +costMap[map.length-1][map.length-1]+"\n");
+            sb.append("Problem ").append(tc).append(": ").append(costMap[map.length-1][map.length-1]).append("\n");
         }
         System.out.println(sb);
     }
