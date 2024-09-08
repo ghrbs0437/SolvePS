@@ -45,7 +45,6 @@ public class Main {
                 }
             }
             if(coverage>=M){// 성공했어...
-//                System.out.println(coverage+"  _coverage" + " dtime" + dTime);
                 if(answerTime>time){
                     answerTime = time;
                 }
