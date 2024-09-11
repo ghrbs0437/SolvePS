@@ -1,23 +1,32 @@
-name: PS_AUTO_PUSH
+name: Push specific folder to another repo
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  push-to-TIL:
-    runs-on: ubuntu-latest    
+  push-to-another-repo:
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-      - name: Configure Git
-        run: |
-          git config --global user.name 'YHK[bot]'
-          git config --global user.email 'ghrbs0437@no.reply'
-      - name: Push changes
+
+      - name: Push specific directory to CodingStudy repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
-        run: |
-          git remote add TIL https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
-          git push TIL main --force 
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}  # SolvePS 리포지토리의 secret
+        with:
+          # SolvePS에서 푸시할 폴더 경로 설정
+          source-directory: 'your_folder_path'  # 푸시할 폴더 경로 (예: 'src' 또는 'algorithms')
+
+          # 푸시할 대상 리포지토리 정보
+          destination-github-username: 'ghrbs0437'
+          destination-repository-name: 'CodingStudy'
+
+          # 커밋 메시지 설정
+          commit-message: ${{ github.event.commits[0].message }}
+          
+          # 타겟 브랜치 및 디렉토리 설정
+          target-branch: master
+          target-directory: 'PS'  # CodingStudy 리포지토리 내 디렉토리 (예: 'LeetCode')
