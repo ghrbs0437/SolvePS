@@ -17,6 +17,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}  # SolvePS 리포지토리의 secret
         with:
+          source-directory: ''
           # 푸시할 대상 리포지토리 정보
           destination-github-username: 'ghrbs0437'
           destination-repository-name: 'CodingStudy'
