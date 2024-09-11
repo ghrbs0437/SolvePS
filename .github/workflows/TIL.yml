@@ -19,5 +19,5 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
         run: |
-          git remote add TIL https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy_.git
+          git remote add TIL https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
           git push TIL main --force 
