@@ -10,20 +10,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    env:
+        API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
     steps:
       - uses: actions/checkout@v2
-      - name: Install mustache (to update the date)
-        run: apk add ruby && gem install mustache
-      - name: creates output
-        run:  sh ./build.sh 
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
-        with:
-          source-directory: 'output'
-          destination-github-username: 'ghrbs0437'
-          destination-repository-name: 'CodingStudy_'
-          user-email: YHK_AUTO@no.reply
-          target-branch: main
-          target-directory : 'PS'
+      - name: Configure Git
+        run: |
+          git config --global user.name 'YHK[bot]'
+          git config --global user.email 'ghrbs0437@no.reply'
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "AutoPs Push"
+      - name: Push changes
+        run: |
+          git push https://github.com/ghrbs0437/CodingStudy_.git
