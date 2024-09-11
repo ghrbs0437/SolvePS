@@ -9,14 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: pandoc/latex    # "ubuntu" is a more generic container
-                               # using "pandoc/latex" because of dependencies
-                               # used in the specific "build.sh"
+    
     steps:
       - uses: actions/checkout@v2
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
       - name: creates output
-        run:  sh ./build.sh # some command from your repository that creates
-                            # output to "source-directory" ("output" in the example)
+        run:  sh ./build.sh 
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -27,3 +26,4 @@ jobs:
           destination-repository-name: 'CodingStudy_'
           user-email: YHK_AUTO@no.reply
           target-branch: main
+          target-directory : 'PS'
