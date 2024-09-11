@@ -15,10 +15,9 @@ jobs:
         run: |
           git config --global user.name 'YHK[bot]'
           git config --global user.email 'ghrbs0437@no.reply'
-          git remote add TIL https://github.com/ghrbs0437/Study_Programmers.git
+          git remote add TIL https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy_.git
       - name: Push changes
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
         run: |
-          git add .
-          git push TIL
+          git push TIL main --force 
