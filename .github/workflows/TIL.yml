@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v2
-
-      - name: creates output
-        run:  sh ./build.sh # some command from your repository that creates
-                            # output to "source-directory" ("output" in the example)
       - name: Configure Git
         run: |
           git config --global user.name 'YHK[bot]'
