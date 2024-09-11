@@ -19,5 +19,11 @@ jobs:
           git config --global user.email 'ghrbs0437@no.reply'
           git remote add TIL https://github.com/ghrbs0437/Study_Programmers.git
       - name: Push changes
-        run: |
-          git push TIL main
+        uses: cpina/github-action-push-to-another-repository@main
+        with:
+          source-directory: 'output'
+          destination-github-username: 'ghrbs0437'
+          destination-repository-name: 'CodingStudy_'
+          commit-message: 'Auto Push Test'
+          target-branch: main
+          target-directory: 'PS'
