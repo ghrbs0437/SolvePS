@@ -1,0 +1,29 @@
+name: PS_AUTO_PUSH
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex    # "ubuntu" is a more generic container
+                               # using "pandoc/latex" because of dependencies
+                               # used in the specific "build.sh"
+    steps:
+      - uses: actions/checkout@v2
+      - name: creates output
+        run:  sh ./build.sh # some command from your repository that creates
+                            # output to "source-directory" ("output" in the example)
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
+        with:
+          source-directory: 'output'
+          destination-github-username: 'ghrbs0437'
+          destination-repository-name: 'CodingStudy_'
+          user-email: YHK_AUTO@no.reply
+          target-branch: main
