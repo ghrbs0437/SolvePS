@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
+  push-to-TIL:
+    runs-on: ubuntu-latest    
     env:
         API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
     steps:
@@ -18,6 +17,7 @@ jobs:
         run: |
           git config --global user.name 'YHK[bot]'
           git config --global user.email 'ghrbs0437@no.reply'
+          git remote add TIL https://github.com/ghrbs0437/Study_Programmers.git
       - name: Push changes
         run: |
-          git push https://github.com/ghrbs0437/CodingStudy_.git
+          git push TIL main
