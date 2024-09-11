@@ -23,11 +23,6 @@ jobs:
       - name: Push changes
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
-        uses: cpina/github-action-push-to-another-repository@main
-        with:
-          source-directory: 'output'
-          destination-github-username: 'ghrbs0437'
-          destination-repository-name: 'CodingStudy_'
-          commit-message: 'Auto Push Test'
-          target-branch: master
-          target-directory: 'PS'
+        run: |
+          git add .
+          git push TIL
