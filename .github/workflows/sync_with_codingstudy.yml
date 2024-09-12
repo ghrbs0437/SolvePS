@@ -1,0 +1,25 @@
+name: Sync with CodingStudy
+
+on:
+  push:
+    branches:
+      - main  # SolvePS의 main 브랜치에 push될 때만 동작
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout SolvePS repository
+      uses: actions/checkout@v2
+      
+    - name: Push changes to CodingStudy repository
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git clone https://github.com/ghrbs0437/CodingStudy.git
+        rsync -av --delete ./ CodingStudy/PS/
+        cd CodingStudy
+        git add PS/
+        git commit -m "Sync from SolvePS: ${{ github.sha }}"
+        git push https://ghp_${{ secrets.AUTO_PUSH }}@github.com/ghrbs0437/CodingStudy.git HEAD:main
