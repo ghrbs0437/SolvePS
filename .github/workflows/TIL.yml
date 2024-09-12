@@ -17,14 +17,12 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}  # SolvePS 리포지토리의 secret
         with:
-          source-directory: ''
           # 푸시할 대상 리포지토리 정보
           destination-github-username: 'ghrbs0437'
           destination-repository-name: 'CodingStudy'
-
           # 커밋 메시지 설정
           commit-message: ${{ github.event.commits[0].message }}
           
           # 타겟 브랜치 및 디렉토리 설정
-          target-branch: master
+          target-branch: 'master'
           target-directory: 'PS'  # CodingStudy 리포지토리 내 디렉토리 (예: 'LeetCode')
