@@ -18,7 +18,7 @@ jobs:
 
       - name: Add target repository as a remote
         run: |
-          git remote add origin https://${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
+          git remote set-url origin https://${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
           git fetch origin
           git add .
           git commit -m "Auto commit by GitHub Action" || echo "No changes to commit"
