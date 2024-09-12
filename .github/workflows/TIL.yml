@@ -20,8 +20,12 @@ jobs:
         run: |
           git remote set-url origin https://${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
           git fetch origin
+          
+      - name: Commit changes
           git add .
           git commit -m "Auto commit by GitHub Action" || echo "No changes to commit"
+          
+      - name: Push changes to the target repository
           git push
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}  # SolvePS 리포지토리의 secret
