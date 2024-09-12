@@ -19,7 +19,7 @@ jobs:
       - name: Add target repository as a remote
         run: |
           git remote set-url --push origin https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy
-          git fetch target_repo
+          git fetch origin
 
       - name: Push changes to the target repository
         run: |
