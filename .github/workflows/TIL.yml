@@ -8,6 +8,8 @@ jobs:
   push-to-another-repo:
     runs-on: ubuntu-latest
 
+    env:
+      API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}  # SolvePS 리포지토리의 secret
     steps:
       - uses: actions/checkout@v2
 
@@ -15,14 +17,20 @@ jobs:
         run: |
           git config --global user.name 'YHK[BOT]'
           git config --global user.email 'ghrbs0437[BOT]@no.reply'
-        
+
       - name: Add target repository as a remote
         run: |
           git remote set-url --push origin https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
           git fetch origin
 
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Auto commit by GitHub Action" || echo "No changes to commit"
+        
+
       - name: Push changes to the target repository
         run: |
-          git push origin master
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}  # SolvePS 리포지토리의 secret
+          git push
+       
