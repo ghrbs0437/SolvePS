@@ -28,6 +28,6 @@ jobs:
       run: |
         rsync -av --delete ./ CodingStudy/PS/
         cd CodingStudy
-        git add PS/ --exclude PS/.github
+        git add PS/
         git commit -m "Sync from SolvePS: ${{ github.sha }}"
         git push origin main
