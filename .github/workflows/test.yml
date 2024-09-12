@@ -20,7 +20,8 @@ jobs:
         run: |
           git remote add target_repo https://${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
           git fetch target_repo
-
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }} 
       - name: Commit changes
         run: |
           git add .
@@ -29,3 +30,5 @@ jobs:
       - name: Push changes to the target repository
         run: |
           git push target_repo main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }} 
