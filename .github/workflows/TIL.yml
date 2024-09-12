@@ -10,7 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Push specific directory to CodingStudy repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
@@ -22,7 +21,6 @@ jobs:
           destination-repository-name: 'CodingStudy'
           # 커밋 메시지 설정
           commit-message: ${{ github.event.commits[0].message }}
-          
           # 타겟 브랜치 및 디렉토리 설정
           target-branch: 'master'
-          target-directory: 'PS'  # CodingStudy 리포지토리 내 디렉토리 (예: 'LeetCode')
+          target-directory: 'SWEA'
