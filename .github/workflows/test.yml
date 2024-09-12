@@ -1,0 +1,31 @@
+name: Push specific folder to another repo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  push-to-another-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure git
+        run: |
+          git config --global user.name 'YHK[BOT]'
+          git config --global user.email 'ghrbs0437[BOT]@no.reply'
+
+      - name: Add target repository as a remote
+        run: |
+          git remote add target_repo https://${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
+          git fetch target_repo
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Auto commit by GitHub Action" || echo "No changes to commit"
+
+      - name: Push changes to the target repository
+        run: |
+          git push target_repo main
