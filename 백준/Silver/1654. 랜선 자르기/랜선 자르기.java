@@ -57,7 +57,6 @@ public class Main {
                 }
             }
 
-//            System.out.println(answerLength + " " +sum);
             if(sum>=N){
                 answer = Math.max(answer,answerLength);
                 answerLength +=danswer;
