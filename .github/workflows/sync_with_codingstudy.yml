@@ -26,7 +26,7 @@ jobs:
     
     - name: Sync files
       run: |
-        rsync -av --delete --exclude='.github' --exclude='*.symlink' ./ CodingStudy/PS/
+        rsync -av --exclude='.github' --exclude='*.symlink' ./ CodingStudy/PS/
         cd CodingStudy
         git add PS/
         git commit -m "Sync from SolvePS: ${{ github.sha }}"
