@@ -23,4 +23,4 @@ jobs:
           commit-message: ${{ github.event.commits[0].message }}
           # 타겟 브랜치 및 디렉토리 설정
           target-branch: 'master'
-          target-directory: 'SWEA'
+          # target-directory: 'SWEA'
