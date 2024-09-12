@@ -24,7 +24,7 @@ jobs:
         git remote set-url origin https://ghrbs0437:${{ secrets.AUTO_PUSH }}@github.com/ghrbs0437/CodingStudy.git
     - name: Sync files
       run: |
-        rsync -av --delete --exclude='.github' ./ CodingStudy/PS/
+        rsync -av --delete ./ CodingStudy/PS/
         cd CodingStudy
         git add PS/
         git commit -m "Sync from SolvePS: ${{ github.sha }}"
