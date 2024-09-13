@@ -20,7 +20,8 @@ jobs:
 
       - name: Add Real repo as remote
         run: |
-          git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
+          git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
+         #  git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
 
       - name: Get the last commit message
         id: get_commit_msg
