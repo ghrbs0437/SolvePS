@@ -24,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.AUTO_PS_PUSH}}
         run: |
-          git remote set-url origin https://ghrbs0437:${{ secrets.GITHUB_TOKEN }}@github.com/ghrbs0437/CodingStudy.git
+          git remote set-url origin https://ghrbs0437:${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git
           # git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
           # git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
 
@@ -35,11 +35,8 @@ jobs:
           echo "::set-output name=msg::$COMMIT_MSG"  # 커밋 메시지를 저장
 
       - name: Sync to repo's PS folder
-        env:
-          GITHUB_TOKEN: ${{secrets.AUTO_PS_PUSH}}
         run: |
           git branch -M main
-          
           mkdir -p PS/SWEA PS/백준
           rsync -av --delete ./SWEA PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
