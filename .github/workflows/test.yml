@@ -5,6 +5,7 @@ permissions:
   pull-requests: write
   issues: write
   repository-projects: write
+  pages: write
 on:
   push:
     branches:
