@@ -41,4 +41,4 @@ jobs:
           rsync -av --delete ./SWEA PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "${{ steps.get_commit_msg.outputs.msg }}" 
-          git push https://${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git
+          git push https://${{secrets.GITHUB_TOKEN}}@github.com/ghrbs0437/CodingStudy.git
