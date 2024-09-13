@@ -2,6 +2,9 @@ name: Sync with CodingStudy
 
 permissions:
   contents: write
+  pull-requests: write
+  issues: write
+  repository-projects: write
 on:
   push:
     branches:
