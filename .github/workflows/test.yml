@@ -33,6 +33,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.AUTO_PUSH}}
         run: |
+          cd /home/runner/work/SolvePS/SolvePS
+          
           git fetch origin main  # Real 리포지토리의 최신 상태를 가져옴
           git reset --hard origin/main
           git switch main
