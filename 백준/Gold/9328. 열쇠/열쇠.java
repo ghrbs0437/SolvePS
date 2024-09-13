@@ -128,13 +128,6 @@ public class Main {
                     }
                 }
             }
-
-//            for(int i=0;i<ySize;i++){
-//                for(int j=0;j<xSize;j++){
-//                    System.out.print(visits[i][j]+"\t");
-//                }
-//                System.out.println();
-//            }
             sb.append(answer+"\n");
 
         }
