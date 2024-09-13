@@ -31,13 +31,6 @@ jobs:
         run: |
           COMMIT_MSG=$(git log -1 --pretty=%B)  # 마지막 커밋 메시지를 가져옴
           echo $COMMIT_MSG
-
-
-      - name: show git Info
-        run : |
-          echo $PAT
-          git remote set-url
-          git
           
       - name : push 
         env:
