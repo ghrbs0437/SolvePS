@@ -28,8 +28,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.AUTO_PS_PUSH}}
         run: |
-          #git remote set-url origin https://ghrbs0437:${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git
-          git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
+          git remote set-url origin https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
+          # git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
           # git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
 
       - name: Get the last commit message
@@ -38,8 +38,7 @@ jobs:
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
           COMMIT_MSG=$(git log -1 --pretty=%B)  # 마지막 커밋 메시지를 가져옴
-          echo "::set-output name=msg::$COMMIT_MSG"  # 커밋 메시지를 저장
-          
+        
           git branch -M main
           mkdir -p PS/SWEA PS/백준
           rsync -av --delete ./SWEA PS/
