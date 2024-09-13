@@ -15,7 +15,7 @@ jobs:
   
       - name: show directory
         run : |
-          echo ls -al
+          ls -al
 
       - name: Set up Git
         env: 
@@ -34,7 +34,7 @@ jobs:
 
       - name: show directory
         run : |
-          echo ls -al
+          ls -al
 
 
       - name : push 
@@ -42,6 +42,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
         run: |
           rsync -av --delete ./SWEA PS/
+          rsync -av --delete ./백준 PS/
+          rsync -av --delete ./프로그래머스 PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "$COMMIT_MSG" 
           git push origin main
