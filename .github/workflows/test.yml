@@ -38,8 +38,7 @@ jobs:
           git branch -M main
           
           mkdir -p PS/SWEA PS/백준
-          rsync -av --delete ./ PS/
+          rsync -av --delete ./SWEA PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "${{ steps.get_commit_msg.outputs.msg }}" 
-          # git push origin HEAD:main  # Real 레포지토리의 main 브랜치에 푸시
           git push https://${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git
