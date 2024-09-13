@@ -31,15 +31,15 @@ jobs:
       - name: Get the last commit message
         id: get_commit_msg
         run: |
+          git config --global user.name "YHK[BOT]"
+          git config --global user.email "YHK[BOT]@no.reply"
           COMMIT_MSG=$(git log -1 --pretty=%B)  # 마지막 커밋 메시지를 가져옴
           echo "::set-output name=msg::$COMMIT_MSG"  # 커밋 메시지를 저장
-
-      - name: Sync to repo's PS folder
-        run: |
+          
           git branch -M main
           mkdir -p PS/SWEA PS/백준
           rsync -av --delete ./SWEA PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
-          git commit -m "${{ steps.get_commit_msg.outputs.msg }}" 
-          # git push origin main
+          git commit -m "$COMMIT_MSG" 
           git push https://ghrbs0437:${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git main
+
