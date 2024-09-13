@@ -35,7 +35,8 @@ jobs:
         run: |
           git fetch origin main  # Real 리포지토리의 최신 상태를 가져옴
           git checkout origin/main 
-          rsync -av --delete ./SWEA/ ps/
+          rsync -av --delete ./swea/ ps/swea/
+          rsync -av --delete ./백준/ ps/백준/
           git add ps/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "${{ steps.get_commit_msg.outputs.msg }}" 
           git push origin HEAD:main  # Real 레포지토리의 main 브랜치에 푸시
