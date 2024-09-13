@@ -45,5 +45,5 @@ jobs:
           rsync -av --delete ./백준 PS/
           rsync -av --delete ./프로그래머스 PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
-          git commit -m "$COMMIT_MSG" 
+          git commit -m "12345" 
           git push origin main
