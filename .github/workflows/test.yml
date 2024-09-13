@@ -19,12 +19,13 @@ jobs:
 
       - name: Set up Git
         env: 
-          GITHUB_TOKEN : ${{ secrets.AUTO_PS_PUSH }}
+          PAT : ${{ secrets.AUTO_PS_PUSH }}
         run: |
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
-          git remote set-url origin https://ghrbs0437:$GITHUB_TOKEN@github.com/ghrbs0437/CodingStudy.git
-          
+          git remote remove origin
+          git remote add origin https://ghrbs0437:$PAT@github.com/ghrbs0437/CodingStudy.git
+
       - name: Get the last commit message
         id: get_commit_msg
         run: |
@@ -32,11 +33,12 @@ jobs:
           echo $COMMIT_MSG
 
 
-      - name: show directory
+      - name: show git Info
         run : |
-          ls -al
-
-
+          echo $PAT
+          git remote set-url
+          git
+          
       - name : push 
         env:
           GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
