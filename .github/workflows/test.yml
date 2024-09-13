@@ -1,5 +1,7 @@
 name: Sync with CodingStudy
 
+permissions:
+  contents: write
 on:
   push:
     branches:
@@ -22,8 +24,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.AUTO_PS_PUSH}}
         run: |
-          git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
-         #  git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
+          git remote set-url origin https://ghrbs0437:${{ secrets.GITHUB_TOKEN }}@github.com/ghrbs0437/CodingStudy.git
+          # git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
+          # git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
 
       - name: Get the last commit message
         id: get_commit_msg
