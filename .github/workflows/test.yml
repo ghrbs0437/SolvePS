@@ -33,14 +33,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.AUTO_PUSH}}
         run: |
-          cd /home/runner/work/SolvePS/SolvePS
+          git branch -M main
+          # git push -u origin main
           
-          git fetch origin main  # Real 리포지토리의 최신 상태를 가져옴
-          git reset --hard origin/main
-          git switch main
-
+          # git fetch origin main  # Real 리포지토리의 최신 상태를 가져옴
+          # git reset --hard origin/main
+          # git switch main
+          
           mkdir -p PS/SWEA PS/백준
-          rsync -av --delete ./ PS/SWEA/
+          # rsync -av --delete ./ PS/SWEA/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "${{ steps.get_commit_msg.outputs.msg }}" 
           git push origin HEAD:main  # Real 레포지토리의 main 브랜치에 푸시
