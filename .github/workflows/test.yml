@@ -28,7 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.AUTO_PS_PUSH}}
         run: |
-          # git remote set-url origin https://ghrbs0437:${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git
+          git remote set-url origin https://ghrbs0437:${{secrets.AUTO_PS_PUSH}}@github.com/ghrbs0437/CodingStudy.git
           # git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
           # git remote add origin https://github.com/ghrbs0437/CodingStudy.git  # Real 레포지토리를 리모트로 추가
 
@@ -45,5 +45,5 @@ jobs:
           rsync -av --delete ./SWEA PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "$COMMIT_MSG" 
-          git push https://ghrbs0437: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@github.com/ghrbs0437/CodingStudy.git main
+          git push origin main
 
