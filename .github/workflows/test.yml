@@ -26,7 +26,7 @@ jobs:
 
       - name: Add Real repo as remote
         env:
-          GITHUB_TOKEN: ${{secrets.AUTO_PS_PUSH}}
+          GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
         run: |
           git remote set-url origin https://ghrbs0437:${{ secrets.AUTO_PS_PUSH }}@github.com/ghrbs0437/CodingStudy.git
           # git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
