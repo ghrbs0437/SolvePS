@@ -23,7 +23,7 @@ jobs:
         run: |
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
-          git remote set-url origin https://ghrbs0437:$PAT@github.com/ghrbs0437/CodingStudy.git
+          git remote set-url origin https://$PAT@github.com/ghrbs0437/CodingStudy.git
 
       - name: Get the last commit message
         id: get_commit_msg
