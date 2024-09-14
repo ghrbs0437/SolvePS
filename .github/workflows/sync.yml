@@ -31,10 +31,19 @@ jobs:
       #    cp -r ./SWEA ./output/
       #    ls -al
 
+      - name: check git
+        run : |
+          git branch
+          git remote
+          git log
+          
+
       - name: Find changed files
         id: changed_files
         run: |
+          git fetch origin main
           git diff --name-only FETCH_HEAD^ FETCH_HEAD > changed_files.txt
+          
           cat changed_files.txt
 
       - name: Create output directory and copy only changed files
