@@ -5,12 +5,14 @@ on:
     branches:
       - main  # main 브랜치에 푸시될 때 트리거
 
-permissions:
-  contents: write
+
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
 
     steps:
       - name: Checkout repo
