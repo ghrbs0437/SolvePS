@@ -41,7 +41,10 @@ jobs:
           #    echo "NO Changes to commit."
           #    exit 0
           #  fi
-          git remote set-url origin https://github.com/ghrbs0437/CodingStudy.git
+          echo "PAT : $PAT"
+          echo "GITHUB_TOKEN : $GITHUB_TOKEN"
+          
+          git remote set-url CodingStudy https://github.com/ghrbs0437/CodingStudy.git
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "AUTO_$COMMIT_MSG" 
-          git push origin main
+          git push CodingStudy main
