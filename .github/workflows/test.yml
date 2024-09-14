@@ -5,8 +5,6 @@ on:
     branches:
       - main  # main 브랜치에 푸시될 때 트리거
 
-
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -14,40 +12,26 @@ jobs:
       issues: write
       pull-requests: write
       contents: write
-
+  
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3  # 레포지토리의 코드를 체크아웃
   
-      - name: show directory
-        run : |
-          ls -al
-
       - name: Set up Git
         run: |
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
-          
-      - name : push 
-        env:
-          PAT : ${{ secrets.AUTO_PS_PUSH }}
-          GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
-        run: |
-          echo "###PUSH 프로세스 시작..###"
-          COMMIT_MSG=$(git log -1 --pretty=%B)  # 마지막 커밋 메시지를 가져옴
-          echo $COMMIT_MSG
-          echo "$COMMIT_MSG"
-          rsync -av --delete ./SWEA ./PS/
-          rsync -av --delete ./백준 ./PS/
-          rsync -av --delete ./프로그래머스 ./PS/
-          #  if git diff --cached --quiet; then
-          #    echo "NO Changes to commit."
-          #    exit 0
-          #  fi
-          echo "PAT : $PAT"
-          echo "GITHUB_TOKEN : $GITHUB_TOKEN"
 
-          git remote add CodingStudy https://$PAT@github.com/ghrbs0437/CodingStudy.git
-          git add PS/  # ps 폴더에 변경된 파일들을 추가
-          git commit -m "AUTO_$COMMIT_MSG" 
-          git push CodingStudy main
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_PS_PUSH }}
+        with:
+          source-directory: 'output'
+          destination-github-username: 'ghrbs0437'
+          destination-repository-name: 'CodingStudy'
+          user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
+          commit-message: ${{ github.event.commits[0].message }}
+          target-branch: main
+          target-directory: 'PS'
