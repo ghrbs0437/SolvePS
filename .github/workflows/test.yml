@@ -24,8 +24,8 @@ jobs:
           
       - name: create Output
         run: |
-          mkdir output
-          cp -R ./SolvePS/* ./output
+          mkdir output 
+          ls -al
       
       - name: Pushes to another repository
         id: push_directory
@@ -38,5 +38,4 @@ jobs:
           destination-repository-name: 'CodingStudy'
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
-          target-branch: main
-          target-directory: 'SWEA'
+          target-branch: 'main'
