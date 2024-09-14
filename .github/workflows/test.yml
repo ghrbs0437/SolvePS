@@ -18,23 +18,17 @@ jobs:
           ls -al
 
       - name: Set up Git
-        env: 
-          PAT : ${{ secrets.AUTO_PS_PUSH }}
         run: |
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
-
-      - name: Get the last commit message
-        id: get_commit_msg
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B)  # 마지막 커밋 메시지를 가져옴
-          echo $COMMIT_MSG
           
       - name : push 
         env:
+          PAT : ${{ secrets.AUTO_PS_PUSH }}
           GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
         run: |
           echo "###PUSH 프로세스 시작..###"
+          COMMIT_MSG=$(git log -1 --pretty=%B)  # 마지막 커밋 메시지를 가져옴
           echo $COMMIT_MSG
           echo "$COMMIT_MSG"
           rsync -av --delete ./SWEA ./PS/
@@ -44,10 +38,6 @@ jobs:
           #    echo "NO Changes to commit."
           #    exit 0
           #  fi
-          ls -al
-          cd PS
-          ls -al
-          cd ..
           git remote set-url origin https://$PAT@github.com/ghrbs0437/CodingStudy.git
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "AUTO_$COMMIT_MSG" 
