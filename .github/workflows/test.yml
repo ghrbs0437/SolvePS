@@ -35,9 +35,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
         run: |
+          echo "###PUSH 프로세스 시작..###"
+          echo $COMMIT_MSG
           rsync -av --delete ./SWEA ./PS/
           rsync -av --delete ./백준 ./PS/
           rsync -av --delete ./프로그래머스 ./PS/
+          if git diff --cached --quiet; then
+            ehco "NO Changes to commit."
+            exit 0
+          fi
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "$COMMIT_MSG" 
           git push origin main
