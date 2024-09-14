@@ -41,7 +41,7 @@ jobs:
           rsync -av --delete ./백준 ./PS/
           rsync -av --delete ./프로그래머스 ./PS/
           if git diff --cached --quiet; then
-            ehco "NO Changes to commit."
+            echo "NO Changes to commit."
             exit 0
           fi
           git add PS/  # ps 폴더에 변경된 파일들을 추가
