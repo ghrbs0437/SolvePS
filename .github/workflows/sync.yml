@@ -31,12 +31,6 @@ jobs:
       #    cp -r ./SWEA ./output/
       #    ls -al
 
-      - name : check git
-        run : |
-          git status
-          git branch
-          git 
-
       - name: Find changed files
         id: changed_files
         run: |
