@@ -25,6 +25,9 @@ jobs:
       - name: create Output
         run: |
           mkdir output 
+          cp -r /백준 /output/
+          cp -r /프로그래머스 /output/
+          cp -r /SWEA /output/
           ls -al
       
       - name: Pushes to another repository
@@ -39,3 +42,4 @@ jobs:
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: 'main'
+          target-directory: 'PS'
