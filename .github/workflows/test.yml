@@ -25,7 +25,7 @@ jobs:
       - name: create Output
         run: |
           mkdir output
-          cp -r ./SolvePS/* ./output
+          cp -R ./SolvePS/* ./output
       
       - name: Pushes to another repository
         id: push_directory
