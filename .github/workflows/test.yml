@@ -25,9 +25,10 @@ jobs:
       - name: create Output
         run: |
           mkdir output 
-          cp -r /백준 /output/
-          cp -r /프로그래머스 /output/
-          cp -r /SWEA /output/
+          ls -al
+          cp -r ./백준 /output/
+          cp -r ./프로그래머스 /output/
+          cp -r ./SWEA /output/
           ls -al
       
       - name: Pushes to another repository
