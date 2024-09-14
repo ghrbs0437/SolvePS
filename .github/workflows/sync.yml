@@ -35,7 +35,6 @@ jobs:
       - name: Find changed files
         id: changed_files
         run: |
-          git fetch origin main
           git diff --name-only HEAD^ HEAD > changed_files.txt
           cat changed_files.txt
 
