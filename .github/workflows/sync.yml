@@ -31,7 +31,7 @@ jobs:
       #    cp -r ./SWEA ./output/
       #    ls -al
 
-      - anme : check git
+      - name : check git
         run : |
           git status
           git branch
