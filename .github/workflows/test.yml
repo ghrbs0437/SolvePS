@@ -44,7 +44,7 @@ jobs:
           echo "PAT : $PAT"
           echo "GITHUB_TOKEN : $GITHUB_TOKEN"
 
-          git remote add CodingStudy https://$PAT:github.com/ghrbs0437/CodingStudy.git
+          git remote add CodingStudy https://$PAT@github.com/ghrbs0437/CodingStudy.git
           git add PS/  # ps 폴더에 변경된 파일들을 추가
           git commit -m "AUTO_$COMMIT_MSG" 
           git push CodingStudy main
