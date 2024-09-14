@@ -1,7 +1,7 @@
 ---
 name: PS Solve summary
 about: To memorize Solve strategy
-title: ''
+title: '[BOJ/SWEA/Programmers].[ProblemNumber].[ProblemTitle]'
 labels: ''
 assignees: ''
 
