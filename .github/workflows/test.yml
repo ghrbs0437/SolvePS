@@ -23,8 +23,7 @@ jobs:
         run: |
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
-          git remote remove origin
-          git remote add origin https://ghrbs0437:$PAT@github.com/ghrbs0437/CodingStudy.git
+          git remote set-url origin https://ghrbs0437:$PAT@github.com/ghrbs0437/CodingStudy.git
 
       - name: Get the last commit message
         id: get_commit_msg
@@ -36,9 +35,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.AUTO_PS_PUSH }}
         run: |
-          rsync -av --delete ./SWEA PS/
-          rsync -av --delete ./백준 PS/
-          rsync -av --delete ./프로그래머스 PS/
+          rsync -av --delete ./SWEA ./PS/
+          rsync -av --delete ./백준 ./PS/
+          rsync -av --delete ./프로그래머스 ./PS/
           git add PS/  # ps 폴더에 변경된 파일들을 추가
-          git commit -m "12345" 
+          git commit -m "$COMMIT_MSG" 
           git push origin main
