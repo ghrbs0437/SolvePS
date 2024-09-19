@@ -22,41 +22,14 @@ jobs:
           git config --global user.name "YHK[BOT]"
           git config --global user.email "YHK[BOT]@no.reply"
           
-      #- name: create Output
-      #  run: |
-      #    mkdir output 
-      #    ls -al
-      #    cp -r ./백준 ./output/
-      #    cp -r ./프로그래머스 ./output/
-      #    cp -r ./SWEA ./output/
-      #    ls -al
-
-      - name: check git
-        run : |
-          git branch
-          git remote
-          git log
-          
-
-      - name: Find changed files
-        id: changed_files
+      - name: create Output
         run: |
-          git fetch origin main
-          git diff --name-only FETCH_HEAD^ FETCH_HEAD > changed_files.txt
-          
-          cat changed_files.txt
-
-      - name: Create output directory and copy only changed files
-        run: |
-          mkdir output
-          for file in $(cat changed_files.txt); do
-            if [[ $file == 백준/* || $file == 프로그래머스/* || $file == SWEA/* ]]; then
-              mkdir -p $(dirname ./output/$file)
-              cp $file ./output/$file
-            fi
-          done
-          ls -al output
-
+          mkdir output 
+          ls -al
+          cp -r ./백준 ./output/
+          cp -r ./프로그래머스 ./output/
+          cp -r ./SWEA ./output/
+          ls -al
       
       - name: Pushes to another repository
         id: push_directory
