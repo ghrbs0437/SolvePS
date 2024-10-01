@@ -39,25 +39,9 @@ public class Main {
                 // 결합에 성공했으면?
                 cnt++;
                 answer += token.cost;
-//                linkCost[token.start] = Math.min(linkCost[token.start], token.cost);
-//                linkCost[token.end] = Math.min(linkCost[token.end], token.cost);
             }
         }
-//        int minDiff = Integer.MAX_VALUE;
-//        // 연결 기대값과 땅파기 기대값에서 작은걸 해야할거 아니야.. 근데 땅은 한번이상 무조건 파야해
-//        boolean dig = false;
-//        for(int i=0;i<N;i++){
-//            minDiff = Math.min ( minDiff, Math.abs(linkCost[i] - digCost[i]));
-//            if(linkCost[i] > digCost[i]){
-//                dig = true;
-//                answer += digCost[i];
-//            }else{
-//                answer += linkCost[i];
-//            }
-//        }
-//        if(!dig){
-//            answer+= minDiff;
-//        }
+
         System.out.println(answer);
 
     }
