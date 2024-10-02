@@ -47,8 +47,7 @@ public class Solution {
             return;
         }
         visits[index] = true;
-
-
+        
         if(index+1<4
                 &&!visits[index+1]
                 &&magnets[index+1].plain[6] != magnets[index].plain[2]){
@@ -60,8 +59,6 @@ public class Solution {
             rotate(index-1,magnets,-direction,visits);
         }
 
-
-
         if(direction == 1){ // 시계방향
             magnets[index].shiftRight();
         }else if(direction==-1){
@@ -70,7 +67,6 @@ public class Solution {
 
 
     }
-
 
     public static class Magnet {
         int[] plain = new int[8];
@@ -88,12 +84,6 @@ public class Solution {
                 plain[i] = plain[i-1];
             }
             plain[0] = temp;
-        }
-
-        @Override
-        public String toString() {
-            return
-                    "plain=" + Arrays.toString(plain)+"\n";
         }
     }
 }
