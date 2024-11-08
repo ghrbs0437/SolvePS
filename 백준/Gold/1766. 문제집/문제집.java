@@ -31,32 +31,6 @@ public class Main {
         }
 
 
-//        while(!tokenMap.isEmpty()){
-//            Set<Integer> keySet = tokenMap.keySet();
-//            PriorityQueue<Token> pq = new PriorityQueue<>((a,b)->{
-//                if(a.indegree==b.indegree){
-//                    return a.index - b.index;
-//                }else{
-//                    return a.indegree - b.indegree;
-//                }
-//            });
-//            for(Integer i : keySet){
-//                Token token = tokenMap.get(i);
-//                if(token.indegree==0){
-//                    pq.add(token);
-//                }
-//            }
-//
-//            while(!pq.isEmpty()){
-//                Token token = pq.poll();
-//                for(int i : tokenMap.get(token.index).next){
-//                    tokenMap.get(i).indegree--;
-//                }
-//                sb.append(token.index+" ");
-//                tokenMap.remove(token.index);
-//            }
-//
-//        }
 
         Set<Integer> keySet = tokenMap.keySet();
         PriorityQueue<Token> pq = new PriorityQueue<>((a,b)->{
@@ -84,7 +58,7 @@ public class Main {
                 }
             }
         }
-        
+
         System.out.println(sb);
 
     }
