@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 
 public class Main {
 
@@ -19,7 +18,6 @@ public class Main {
                 map[i][j] = Integer.parseInt(strs[j]);
             }
         }
-
 
         boolean[][][] visits = new boolean[MAP_SIZE][MAP_SIZE][4];
 
@@ -72,5 +70,4 @@ public class Main {
         }
         System.out.println(0);
     }
-
 }
