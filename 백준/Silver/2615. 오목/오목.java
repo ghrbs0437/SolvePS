@@ -9,20 +9,22 @@ public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        int[][] map = new int[19][19];
 
-        for(int i=0;i<19;i++){
+        final int MAP_SIZE = 19;
+        int[][] map = new int[MAP_SIZE][MAP_SIZE];
+
+        for(int i=0;i<MAP_SIZE;i++){
             String[] strs = br.readLine().split(" ");
-            for(int j=0;j<19;j++){
+            for(int j=0;j<MAP_SIZE;j++){
                 map[i][j] = Integer.parseInt(strs[j]);
             }
         }
 
 
-        boolean[][][] visits = new boolean[19][19][4];
+        boolean[][][] visits = new boolean[MAP_SIZE][MAP_SIZE][4];
 
-        for(int i=0;i<19;i++){
-            for(int j=0;j<19;j++){
+        for(int i=0;i<MAP_SIZE;i++){
+            for(int j=0;j<MAP_SIZE;j++){
                 int current = map[i][j];
                 if(current==0){
                     continue;
@@ -43,7 +45,7 @@ public class Main {
                     while(true){
                         cy+=dy;
                         cx+=dx;
-                        if(cy>=19||cx>=19||cx<0){
+                        if(cy>=MAP_SIZE||cx>=MAP_SIZE||cx<0){
                             break;
                         }
                         if(map[cy][cx]==current){
@@ -56,10 +58,13 @@ public class Main {
                         }else{
                             break;
                         }
+                        if(length>5){
+                            break;
+                        }
                     }
                     if(length==5){
-                        System.out.println(current);
-                        System.out.println((ty+1) +" " +(tx+1));
+                        sb.append(current+"\n").append(ty+1).append(" ").append(tx+1);
+                        System.out.println(sb.toString());
                         return;
                     }
                 }
