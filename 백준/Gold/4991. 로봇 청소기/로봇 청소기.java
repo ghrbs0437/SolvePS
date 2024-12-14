@@ -111,15 +111,12 @@ public class Main {
         if(value>=ANSWER){
             return;
         }
-        if(depth >= distance.length){
+        if(depth == distance.length){
             ANSWER = Math.min(value,ANSWER);
             return;
         }
 
         for(int i=0;i<distance.length;i++){
-            if(i==current){
-                continue;
-            }
 
             if(distance[current][i] != Integer.MAX_VALUE && !visits[i]){
                 visits[i] = true;
