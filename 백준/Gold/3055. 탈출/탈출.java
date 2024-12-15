@@ -1,78 +1,99 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Main {
 
-    static int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    public static int[][] directions = {{-1,0},{1,0},{0,1},{0,-1}};
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+
         String[] strs = br.readLine().split(" ");
+
         int ySize = Integer.parseInt(strs[0]);
         int xSize = Integer.parseInt(strs[1]);
 
         char[][] map = new char[ySize][xSize];
-        Queue<Position> waterQ = new LinkedList<>();
-        Queue<Position> moveQ = new LinkedList<>();
-
+        Queue<Position> dochi = new LinkedList<>();
+        Queue<Position> waters = new LinkedList<>();
         for(int i=0;i<ySize;i++){
             String str = br.readLine();
             for(int j=0;j<xSize;j++){
                 map[i][j] = str.charAt(j);
-                if(map[i][j] =='*'){
-                    waterQ.add(new Position(i,j));
-                }else if(map[i][j] == 'S'){
-                    moveQ.add(new Position(i,j));
+                if(map[i][j] =='S'){
+                    Position start = new Position();
+                    start.y = i;
+                    start.x = j;
+                    dochi.add(start);
+                }else if(map[i][j] =='*'){
+                    Position water = new Position();
+                    water.y = i;
+                    water.x = j;
+                    waters.add(water);
                 }
             }
         }
 
         int time = 0;
-        boolean[][] dochiVisit = new boolean[ySize][xSize];
-        while(!moveQ.isEmpty()){
-            time++;
-            int waterSize = waterQ.size();
-            for(int i=0;i<waterSize;i++){
-                Position pos = waterQ.poll();
-                for(int[] direction : directions){
-                    int dy = direction[0];
-                    int dx = direction[1];
-                    int ny = pos.y + dy;
-                    int nx = pos.x + dx;
-                    if(ny<0||nx<0||ny>=ySize||nx>=xSize){
-                        continue;
-                    }
-                    if(map[ny][nx]=='.'||map[ny][nx]=='S'){
-                        map[ny][nx] = '*';
-                        waterQ.add(new Position(ny,nx));
-                    }
-                }
+        while(true){
+            time ++;
+
+            if(dochi.isEmpty()){
+                break;
             }
 
-            int dochiSize = moveQ.size();
-            for(int i=0;i<dochiSize;i++){
-                Position pos = moveQ.poll();
-                if(dochiVisit[pos.y][pos.x]){
-                    continue;
-                }
-                dochiVisit[pos.y][pos.x] = true;
+            int wSize = waters.size();
+            for(int i=0;i<wSize;i++){
+                Position water = waters.poll();
+                int cy = water.y;
+                int cx = water.x;
                 for(int[] direction : directions){
                     int dy = direction[0];
                     int dx = direction[1];
-                    int ny = pos.y + dy;
-                    int nx = pos.x + dx;
+                    int ny = cy + dy;
+                    int nx = cx + dx;
                     if(ny<0||nx<0||ny>=ySize||nx>=xSize){
                         continue;
                     }
                     if(map[ny][nx]=='.'){
-                        moveQ.add(new Position(ny,nx));
+                        Position next = new Position();
+                        next.y = ny;
+                        next.x = nx;
+                        map[ny][nx] = '*';
+                        waters.add(next);
+                    }
+                }
+            }
+
+            int dSize = dochi.size();
+            for(int i=0;i<dSize;i++){
+                Position doc = dochi.poll();
+                int cy = doc.y;
+                int cx = doc.x;
+                for(int [] direction : directions){
+                    int dy = direction[0];
+                    int dx = direction[1];
+                    int ny = cy + dy;
+                    int nx = cx + dx;
+                    if(ny<0||nx<0||ny>=ySize||nx>=xSize){
+                        continue;
                     }
                     if(map[ny][nx]=='D'){
                         System.out.println(time);
                         return;
+                    }
+                    if(map[ny][nx]=='.'){
+                        Position next = new Position();
+                        next.y = ny;
+                        next.x = nx;
+                        map[ny][nx] = 'S';
+                        dochi.add(next);
                     }
                 }
             }
@@ -80,15 +101,10 @@ public class Main {
 
         System.out.println("KAKTUS");
 
-
     }
 
     public static class Position{
         int y;
         int x;
-        Position(int y,int x){
-            this.y = y;
-            this.x = x;
-        }
     }
 }
