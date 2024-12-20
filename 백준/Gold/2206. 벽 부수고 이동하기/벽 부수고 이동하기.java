@@ -2,154 +2,128 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main {
 
-    static int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-    static int ans =Integer.MAX_VALUE;
+    public static int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         String[] strs = br.readLine().split(" ");
+        int ySize = Integer.parseInt(strs[0]);
+        int xSize = Integer.parseInt(strs[1]);
 
-        int Y = Integer.parseInt(strs[0]);
-        int X = Integer.parseInt(strs[1]);
-
-
-        int[][] maps = new int[Y][X];
-        int[][] maps2 = new int[Y][X];
-        boolean[][] visits = new boolean[Y][X];
-        // ture면 이동가능한거!
-        for(int i=0;i<Y;i++){
+        int[][] map = new int[ySize][xSize];
+        for(int i=0;i<ySize;i++){
             String str = br.readLine();
-            for(int j=0;j<X;j++){
-                if(str.charAt(j)=='1'){
-                    maps[i][j] = -1;
-                    maps2[i][j] = -1;
-                }else{
-                    maps[i][j] = Integer.MAX_VALUE;
-                    maps2[i][j] = Integer.MAX_VALUE;
+            for(int j=0;j<xSize;j++){
+                map[i][j] = str.charAt(j) - '0';
+            }
+        }
+
+
+        int[][] distance = new int[ySize][xSize];
+        for (int i = 0; i < ySize; i++) {
+            for (int j = 0; j < xSize; j++) {
+                distance[i][j] =30000000;
+            }
+        }
+        distance[0][0] = 1;
+
+        Queue<Token> queue = new ArrayDeque<>();
+        Queue<Token> queue2 = new ArrayDeque<>();
+        queue.add(new Token(0,0,1));
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+
+                Token t = queue.poll();
+
+                int cy = t.y;
+                int cx = t.x;
+                int moveCnt = t.moveCnt;
+
+                for (int[] direction : directions) {
+                    int dy = direction[0];
+                    int dx = direction[1];
+                    int ny = cy + dy;
+                    int nx = cx + dx;
+
+                    if (ny < 0 || nx < 0 || ny >= ySize || nx >= xSize) {
+                        continue;
+                    }
+                    if (map[ny][nx] == 1) {
+                        if(distance[ny][nx] <= moveCnt+1){
+                            continue;
+                        }else{
+                            distance[ny][nx] = moveCnt + 1;
+                            queue2.add(new Token(ny, nx,  moveCnt + 1));
+                        }
+                    } else {
+                        if(distance[ny][nx]<=moveCnt+1){
+                            continue;
+                        }else{
+                            distance[ny][nx] = moveCnt + 1;
+                            queue.add(new Token(ny, nx, moveCnt + 1));
+                        }
+                    }
                 }
             }
         }
-        maps[0][0] = 1;
 
-//        for(int i=0;i<Y;i++){
-//            for(int j=0;j<X;j++){
-//                System.out.print(maps[i][j]+ " " );
-//            }
-//            System.out.println();
-//        }
-
-
-        Queue<PositionToken> queue = new ArrayDeque<>();
-        queue.add(new PositionToken(0,0,true));
-        int val1 = Integer.MAX_VALUE;
-        int ans = 1;
-        wh : while(!queue.isEmpty()){
-            int size = queue.size();
+        while(!queue2.isEmpty()){
+            int size = queue2.size();
             for(int i=0;i<size;i++){
-                PositionToken token = queue.poll();
+                Token t = queue2.poll();
+                int cy = t.y;
+                int cx = t.x;
+                int moveCnt = t.moveCnt;
 
-//              System.out.println(token);
-                visits[token.y][token.x] = true;
-                if(token.y == Y-1 && token.x == X-1){
-                    val1 = ans;
-                    break wh;
-                }
 
-                for(int[] direction : directions){
-                    int nextY = token.y+ direction[0];
-                    int nextX = token.x+ direction[1];
 
-                    if(nextY < 0 || nextY >= Y || nextX < 0 || nextX >= X){
+                for (int[] direction : directions) {
+                    int dy = direction[0];
+                    int dx = direction[1];
+                    int ny = cy + dy;
+                    int nx = cx + dx;
+
+                    if (ny < 0 || nx < 0 || ny >= ySize || nx >= xSize) {
                         continue;
                     }
 
-                    // 방문안한거중에, 일단 내가 치트사용이 가능한지 확인
-                    if(maps[nextY][nextX]!=-1){ // 치트없이 갈수있는곳
-                        if(maps[nextY][nextX]<=maps[token.y][token.x]+1){ // 갈필요가 없는곳은 안넣는다.
+                    if (map[ny][nx] == 0) {
+                        if(distance[ny][nx]<=moveCnt+1){
                             continue;
-                        }
-                        maps[nextY][nextX] = maps[token.y][token.x]+1;
-                        queue.add(new PositionToken(nextX,nextY, token.cheatable));
-                    }else{
-                        if(token.cheatable){
-                            queue.add(new PositionToken(nextX,nextY, false));
+                        }else{
+                            distance[ny][nx] = moveCnt + 1;
+                            queue2.add(new Token(ny, nx, moveCnt + 1));
                         }
                     }
                 }
             }
-            ans++;
         }
-
-
-        int val2 = Integer.MAX_VALUE;
-        queue = new ArrayDeque<>();
-        queue.add(new PositionToken(X-1,Y-1,true));
-
-        ans = 1;
-        wh:while(!queue.isEmpty()){
-            int size = queue.size();
-            for(int i=0;i<size;i++){
-                PositionToken token = queue.poll();
-
-//              System.out.println(token);
-                visits[token.y][token.x] = true;
-                if(token.y == 0 && token.x == 0){
-//                    System.out.println(ans);
-                    val2 = ans;
-                    break wh;
-                }
-
-                for(int[] direction : directions){
-                    int nextY = token.y+ direction[0];
-                    int nextX = token.x+ direction[1];
-
-                    if(nextY < 0 || nextY >= Y || nextX < 0 || nextX >= X){
-                        continue;
-                    }
-
-                    // 방문안한거중에, 일단 내가 치트사용이 가능한지 확인
-                    if(maps2[nextY][nextX]!=-1){ // 치트없이 갈수있는곳
-                        if(maps2[nextY][nextX]<=maps2[token.y][token.x]+1){ // 갈필요가 없는곳은 안넣는다.
-                            continue;
-                        }
-                        maps2[nextY][nextX] = maps2[token.y][token.x]+1;
-                        queue.add(new PositionToken(nextX,nextY, token.cheatable));
-                    }else{
-                        if(token.cheatable){
-                            queue.add(new PositionToken(nextX,nextY, false));
-                        }
-                    }
-                }
-            }
-            ans++;
-        }
-        if(val1 ==Integer.MAX_VALUE && val2 == Integer.MAX_VALUE){
+        int answer = distance[ySize-1][xSize-1];
+        if(answer==30000000){
             System.out.println(-1);
-            return;
         }else{
-            System.out.println(Math.min(val1,val2));
+            System.out.println(answer);
         }
 
     }
 
-
-
-    public static class PositionToken{
-        int x;
+    public static class Token{
         int y;
-        boolean cheatable;
-        public PositionToken(int x, int y,boolean cheatable){
-            this.x = x;
-            this.y = y;
-            this.cheatable = cheatable;
-        }
+        int x;
+        int moveCnt;
 
-        public String toString(){
-            return "["+y+","+x+"]";
+        Token(int y, int x, int moveCnt) {
+            this.y = y;
+            this.x = x;
+            this.moveCnt = moveCnt;
         }
     }
 
