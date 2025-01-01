@@ -12,31 +12,28 @@ public class Main {
         int N = Integer.parseInt(strs[0]); // 필요한 줄의 개수
         int M = Integer.parseInt(strs[1]); // 브랜드 수
 
-        int[] packages = new int[M];
-        int[] pieces = new int[M];
+        int pack = Integer.MAX_VALUE;
+        int piece = Integer.MAX_VALUE;
         for(int i=0;i<M;i++){
             strs = br.readLine().split(" ");
-            packages[i] = Integer.parseInt(strs[0]);
-            pieces[i] = Integer.parseInt(strs[1]);
+            pack = Math.min(pack, Integer.parseInt(strs[0]));
+            piece = Math.min(piece, Integer.parseInt(strs[1]));
         }
-
-        Arrays.sort(packages);
-        Arrays.sort(pieces);
 
         int packageSize = N/6;
         int pieceSize = N%6;
 
         int answer = 0;
-        if(packages[0] > pieces[0]*6){
-            answer += pieces[0] * packageSize*6;
+        if(pack > piece*6){
+            answer += piece * packageSize*6;
         }else{
-            answer += packages[0] * packageSize;
+            answer += pack * packageSize;
         }
 
-        if(packages[0] > pieces[0]*pieceSize){
-            answer += pieces[0] * pieceSize;
+        if(pack >piece *pieceSize){
+            answer += piece* pieceSize;
         }else {
-            answer += packages[0];
+            answer += pack;
         }
 
 
