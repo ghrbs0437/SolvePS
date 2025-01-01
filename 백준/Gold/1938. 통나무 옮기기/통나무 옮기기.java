@@ -8,11 +8,8 @@ import java.util.PriorityQueue;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int mapSize = Integer.parseInt(br.readLine());
-
         char[][] map = new char[mapSize][mapSize];
-
 
         int coreX = 0;
         int coreY = 0;
@@ -23,23 +20,21 @@ public class Main {
                 if(map[i][j] == 'B') {
                     coreX+=j;
                     coreY+=i;
-//                    map[i][j] = '0';
                 }
             }
         }
         coreY /=3;
         coreX /=3;
 
-
         int dy = 0;
         int dx = 0;
 
-//        System.out.println("coreY = " + coreY + ", coreX = " + coreX);
         if(coreX+1<mapSize&&map[coreY][coreX+1]=='B'){
             dx = 1;
         }else{
             dy = 1;
         }
+
         int[][][] moveCntMap = new int[mapSize][mapSize][2];
         for(int i=0;i<mapSize;i++){
             for(int j=0;j<mapSize;j++){
@@ -47,7 +42,6 @@ public class Main {
                 moveCntMap[i][j][1] = Integer.MAX_VALUE;
             }
         }
-//        System.out.println("dy = " + dy + ", dx = " + dx);
 
         getAns(coreY,coreX,dy,dx,map,moveCntMap,0);
 
@@ -66,7 +60,6 @@ public class Main {
         if(currentMoveCnt>=ANSWER){
             return;
         }
-//        System.out.println(currentMoveCnt);
         if(dy==0){
             if(currentMoveCnt>=moveCntMap[coreY][coreX][0]){
                 return;
@@ -79,22 +72,17 @@ public class Main {
             moveCntMap[coreY][coreX][1] = currentMoveCnt;
         }
 
-//            System.out.println(coreY+","+coreX+","+dy+","+dx +","+ currentMoveCnt);
         if(isEnd(coreY,coreX,dy,dx,map)){
             ANSWER = Math.min(ANSWER,currentMoveCnt);
-//            System.out.println(currentMoveCnt);
             return;
         }
 
-
-
         for(int[] direction : directions){
-            if(canMove(coreY,coreX,dy,dx,direction,map)){
+            if(movable(coreY,coreX,dy,dx,direction,map)){
                 getAns(coreY+direction[0], coreX + direction[1], dy, dx, map, moveCntMap, currentMoveCnt+1);
             }
         }
-
-        if(canTurn(coreY,coreX,dy,dx,map)){
+        if(rotatable(coreY,coreX,map)){
             getAns(coreY,coreX,dx,dy,map,moveCntMap, currentMoveCnt+1);
         }
 
@@ -110,7 +98,7 @@ public class Main {
         return false;
     }
 
-    public static boolean canMove(int coreY,int coreX, int dy, int dx, int[] direction, char[][] map){
+    public static boolean movable(int coreY,int coreX, int dy, int dx, int[] direction, char[][] map){
         int[] xs = { coreX - dx, coreX, coreX+dx};
         int[] ys = { coreY - dy, coreY, coreY+dy};
 
@@ -128,7 +116,7 @@ public class Main {
         return true;
     }
 
-    public static boolean canTurn(int coreY, int coreX, int dy, int dx, char[][] map){
+    public static boolean rotatable(int coreY, int coreX, char[][] map){
         for(int i=-1;i<=1;i++){
             for(int j=-1;j<=1;j++){
                 if(coreY + i < 0
