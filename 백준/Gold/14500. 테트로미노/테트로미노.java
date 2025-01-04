@@ -16,7 +16,6 @@ public class Main {
 
             // ㄱ블록
             {{0,0},{0,1},{0,2},{1,2}},
-//            {{0,1},{1,1},{2,1},{0,2}}, // ???
             {{1,0},{1,1},{1,2},{0,2}}, // ???
 
 
@@ -59,26 +58,13 @@ public class Main {
                 arr[i][j] = Integer.parseInt(split[j]);
             }
         }
-
-//        for(int i=0;i<N;i++){
-//            for(int j=0;j<M;j++){
-//                System.out.print(arr[i][j]+" ");
-//            }
-//            System.out.println();
-//        }
-        //(1,1) 에서, (M,N)까지 가능하네요
-
-        ArrayList<Tetromino> alist = new ArrayList<>();
-        for(int[][] sha : shapes){
-            alist.add(new Tetromino(sha));
-        }
         int max = 0 ;
-        for(Tetromino tetromino : alist){
+        for(int[][] sha : shapes){
+            Tetromino tetromino = new Tetromino(sha);
             int val = tetromino.getMaxValInMap(arr);
             if(val>max){
                 max = val;
             }
-//            System.out.println("val = " + val + ":\n "+tetromino);
         }
 
         System.out.println(max);
@@ -111,7 +97,6 @@ public class Main {
                         subSum += arr[ny][nx];
                     }
                     if(maxSum<subSum){
-//                        System.out.println("I : " + i + "  J :" + j);
                         maxSum = subSum;
                     }
                 }
