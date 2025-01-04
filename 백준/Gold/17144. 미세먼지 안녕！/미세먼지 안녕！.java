@@ -26,19 +26,17 @@ public class Main {
             }
         }
         gm.setMap(map);
-
-
+        
         for(int i=0;i<time;i++){
             gm.spread();
             gm.circulate();
         }
+        
         int cnt = 0;
         for(int i=0;i<ySize;i++){
             for(int j=0;j<xSize;j++) {
-//                System.out.print(gm.map[i][j]+" ");
                 cnt+=map[i][j];
             }
-//            System.out.println("");
         }
 
         System.out.println(cnt+2);
@@ -78,7 +76,6 @@ public class Main {
                     upperDirectionIndex++;
                     continue;
                 }
-//                System.out.println(ny+" "+nx+" ");
                 if(map[ny][nx]==-1){
                     map[cy][cx] = 0;
                 }else{
@@ -89,7 +86,6 @@ public class Main {
                 cy = ny;
                 cx = nx;
             }
-
 
             cy = lowerY;
             cx = lowerX;
@@ -102,7 +98,6 @@ public class Main {
                     lowerDirectionIndex++;
                     continue;
                 }
-//                System.out.println(ny+" "+nx+" ");
                 if(map[ny][nx]==-1){
                     map[cy][cx] = 0;
                 }else{
