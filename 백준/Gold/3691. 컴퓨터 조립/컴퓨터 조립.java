@@ -40,7 +40,7 @@ public class Main {
             }
 
             while(!tokens.isEmpty()){
-                Token current = tokens.poll();
+                Token current = tokens.peek();
                 performance = current.quality;
                 Token next = hmap.get(current.type).poll();
                 if(next == null){
@@ -48,26 +48,22 @@ public class Main {
                 }
                 if(next.price < current.price){ // 지금게 더 비싸면 성능구린거 아니면
                     if(next.quality > current.quality){
+                        tokens.poll();
                         tokens.add(next);
                         prices -= current.price;
                         prices += next.price;
-                    }else{
-                        tokens.add(current);
                     }
                 }else{
                     if(next.quality > current.quality){
                         if(prices - current.price + next.price > money){
-                            tokens.add(current);
                         }else{
+                            tokens.poll();
                             tokens.add(next);
                             prices -= current.price;
                             prices += next.price;
                         }
-                    }else{
-                        tokens.add(current);
                     }
                 }
-
             }
             System.out.println(performance);
         }
