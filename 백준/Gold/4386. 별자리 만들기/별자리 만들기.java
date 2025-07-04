@@ -11,7 +11,6 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         double[][] map = new double[n][n];
-        double[][] distance = new double[n][n];
 
         for(int i=0;i<n;i++){
             String[] strs = br.readLine().split(" ");
@@ -32,8 +31,6 @@ public class Main {
                 double sqrt = Math.sqrt(
                         (map[i][0] - map[j][0]) * (map[i][0] - map[j][0])
                                 + (map[i][1] - map[j][1]) * (map[i][1] - map[j][1]));
-                distance[i][j] = sqrt;
-                distance[j][i] = sqrt;
                 Token token = new Token(i,j,sqrt);
                 pq.add(token);
             }
