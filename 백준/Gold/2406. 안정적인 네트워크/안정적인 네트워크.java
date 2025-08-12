@@ -15,11 +15,14 @@ public class Main {
 
         int[] parents = init(n);
 
+        int link = 0;
         for(int i=0;i<m;i++){
             strs = br.readLine().split(" ");
             int start = Integer.parseInt(strs[0])-1;
             int end = Integer.parseInt(strs[1])-1;
-            union(parents,start,end);
+            if(union(parents,start,end)){
+                link++;
+            }
         }
 
         int[][] map = new int[n][n];
@@ -51,9 +54,13 @@ public class Main {
             if(token.start == 0 || token.end == 0){
                 continue;
             }
+            if(link == n-2){
+                break;
+            }
             if(union(parents,token.start,token.end)){
                 answer+=token.cost;
                 cnt++;
+                link++;
                 sb.append(token.start+1).append(" ").append(token.end+1).append("\n");
             }
         }
