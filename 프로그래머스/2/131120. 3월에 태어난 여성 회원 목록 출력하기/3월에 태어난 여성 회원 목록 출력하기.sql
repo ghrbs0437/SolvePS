@@ -1,6 +1,6 @@
-select MEMBER_ID,MEMBER_NAME,GENDER,subString(DATE(DATE_OF_BIRTH),1,10) as DATE_OF_BIRTH
-from member_profile
-where substring(date(date_of_birth),7,1) = 3
-and TLNO is not null
-and GENDER = 'W'
-order by member_id asc
+SELECT MEMBER_ID, MEMBER_NAME , GENDER , DATE_FORMAT(DATE_OF_BIRTH,'%Y-%m-%d') AS DATE_OF_BIRTH
+FROM MEMBER_PROFILE
+WHERE DATE_OF_BIRTH like '%-03-%'
+AND TLNO is not null
+AND GENDER = 'W'
+ORDER BY MEMBER_ID ASC
