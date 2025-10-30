@@ -1,0 +1,39 @@
+-- 코드를 작성해주세요
+
+with SUB AS (
+    SELECT MAX(RN) AS RN FROM(
+        SELECT ROW_NUMBER() OVER() AS RN 
+        FROM ECOLI_DATA A 
+        ORDER BY SIZE_OF_COLONY
+    ) BB
+)
+
+
+SELECT ZZ.ID,
+CASE 
+        WHEN ((B.RN)/4)*1>= ZZ.RN THEN 'LOW'
+        WHEN ((B.RN)/4)*2>= ZZ.RN THEN 'MEDIUM'
+        WHEN ((B.RN)/4)*3>= ZZ.RN THEN 'HIGH'
+        ELSE 'CRITICAL' END AS 'COLONY_NAME'
+FROM SUB B,
+(
+    SELECT ROW_NUMBER() OVER() AS RN,a.ID
+    FROM ECOLI_DATA A
+    ORDER BY SIZE_OF_COLONY
+) ZZ
+ORDER BY ZZ.ID ASC
+
+
+#     SELECT ROW_NUMBER() OVER() AS ROW_NUM,a.*
+#     FROM ECOLI_DATA A
+#     ORDER BY SIZE_OF_COLONY
+
+
+
+# with SUB AS (
+#     SELECT MAX(RN) AS RN FROM(
+#         SELECT ROW_NUMBER() OVER() AS RN 
+#         FROM ECOLI_DATA A 
+#         ORDER BY SIZE_OF_COLONY
+#     ) BB
+# )
