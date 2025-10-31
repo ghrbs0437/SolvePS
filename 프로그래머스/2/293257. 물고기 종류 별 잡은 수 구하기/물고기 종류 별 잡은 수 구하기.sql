@@ -9,3 +9,6 @@ RIGHT OUTER JOIN (
 ) C
 ON B.FISH_TYPE = C.FISH_TYPE
 ORDER BY C.FISH_COUNT DESC
+
+-- 아마도 FISH INFO에는 있는데 FISH_NAME_INFO에는 없는 컬럼이 있는듯 하다...
+-- 맘에 안드는데.. 
