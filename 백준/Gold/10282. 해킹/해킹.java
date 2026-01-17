@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        StringBuilder sb = new StringBuilder();
         int testCase = Integer.parseInt(br.readLine());
 
         for(int tc = 0; tc<testCase;tc++){
@@ -37,12 +37,13 @@ public class Main {
                 lines[start].add(token);
             }
 
-            dijkstraSolve(lines,C,N);
 
+            dijkstraSolve(lines,C,N,sb);
         }
+        System.out.println(sb);
     }
 
-    public static void dijkstraSolve(ArrayList<Token>[] lines, int start, int N){
+    public static void dijkstraSolve(ArrayList<Token>[] lines, int start, int N, StringBuilder sb){
         PriorityQueue<Token> pq = new PriorityQueue<>((a,b)->{
             return a.cost - b.cost;
         });
@@ -82,7 +83,7 @@ public class Main {
             }
             max = Math.max(costsMap[i],max);
         }
-        System.out.println(cnt+" " +max);
+        sb.append(cnt).append(" ").append(max).append("\n");
     }
 
     public static class Token{
