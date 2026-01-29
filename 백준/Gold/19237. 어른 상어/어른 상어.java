@@ -50,13 +50,10 @@ public class Main {
                 }
             }
         }
-
-
-
-
+        
 
         int time = 0;
-//
+
         for(Shark shark : sharks){
             shark.spreadSmell(map,K,smells);
         }
@@ -179,14 +176,6 @@ public class Main {
              }
 
         }
-//        for(int i=0;i<size;i++){
-//            for(int j=0;j<size;j++){
-//                System.out.print(newMap[i][j]+" ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
-
 
     }
 
@@ -215,16 +204,7 @@ public class Main {
             smells.add(new Smell(y,x,number,K));
 
         }
-
-        public void printPriority(){
-            for(int i=0;i< priority.length;i++){
-                for(int j=0;j< priority.length;j++){
-                    System.out.print(priority[i][j]+" " );
-                }
-                System.out.println();
-            }
-        }
-
+        
     }
 
     public static class Smell{
